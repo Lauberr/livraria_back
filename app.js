@@ -3,15 +3,16 @@ const cors = require('cors');
 require('dotenv').config();
 
 const db = require('./config/database');
+const autorRoutes = require('./routes/autorRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors()); // Permitir requisições de outros domínios (ex: frontend)
-app.use(express.json()); // Entender JSON no corpo da requisição
+app.use(cors());
+app.use(express.json());
 
-// Rota de teste
+app.use('/api/autores', autorRoutes); // <- rota principal dos autores
+
 app.get('/api/test', async (req, res) => {
   try {
     const result = await db.query('SELECT NOW()');
@@ -24,4 +25,5 @@ app.get('/api/test', async (req, res) => {
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
+
 
