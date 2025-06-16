@@ -27,3 +27,38 @@ async function popularAutores() {
 }
 
 popularAutores();
+
+const categoria = [
+    'Ficção',
+    'Romance',
+    'Terror',
+    'Suspense',
+    'Conto',
+    'Histórico',
+    'Crônica',
+    'Infantil',
+    'Fantasia',
+    'Ciência',
+    'Poesia',
+    'Biografia',
+    'Científico',
+  ];
+  
+  async function popularCategoria() {
+    try {
+      for (const nome_cat of categoria) {
+        await db.query(
+          'INSERT INTO categoria (nome_cat) VALUES ($1) ON CONFLICT DO NOTHING',
+          [nome_cat]
+        );
+        console.log(`Categoria "${nome_cat}" inserida`);
+      }
+      console.log('População concluída!');
+      process.exit(0);
+    } catch (err) {
+      console.error('Erro ao popular categoria:', err);
+      process.exit(1);
+    }
+  }
+  
+  popularCategoria();
