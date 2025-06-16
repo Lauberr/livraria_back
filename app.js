@@ -14,7 +14,7 @@ app.use(express.json());
 app.use('/api/autores', autorRoutes); // <- rota principal dos autores
 
 app.get('/', (req, res) => {
-  res.send('API da Livraria funcionando! 🧠📚');
+  res.send('API da Livraria funcionando! ');
 });
 
 
