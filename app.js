@@ -5,6 +5,7 @@ require('dotenv').config();
 const db = require('./config/database');
 const autorRoutes = require('./routes/autorRoutes');
 const categoriaRoutes = require('./routes/categoriaRoutes');
+const subcategoriaRoutes = require('./routes/subcategoriaRoutes')
 
 
 const app = express();
@@ -16,6 +17,8 @@ app.use(express.json());
 app.use('/api/autores', autorRoutes); // <- rota principal dos autores
 
 app.use('/api/categoria', categoriaRoutes);
+
+app.use('/api/subcategorias', subcategoriaRoutes)
 
 app.get('/', (req, res) => {
   res.send('API da Livraria funcionando! ');

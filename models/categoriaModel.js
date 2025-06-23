@@ -7,28 +7,28 @@ const Categoria = {
   },
 
   obterPorId: async (id) => {
-    const result = await db.query('SELECT * FROM categoria WHERE id_categoria = $1', [id]);
+    const result = await db.query('SELECT * FROM categoria WHERE id_cat = $1', [id]);
     return result.rows[0];
   },
 
-  criar: async (nome_categoria) => {
+  criar: async (nome_cat) => {
     const result = await db.query(
-      'INSERT INTO categoria (nome_categoria) VALUES ($1) RETURNING *',
-      [nome_categoria]
+      'INSERT INTO categoria (nome_cat) VALUES ($1) RETURNING *',
+      [nome_cat]
     );
     return result.rows[0];
   },
 
-  atualizar: async (id, nome_categoria) => {
+  atualizar: async (id, nome_cat) => {
     const result = await db.query(
-      'UPDATE categoria SET nome_categoria = $1 WHERE id_categoria = $2 RETURNING *',
-      [nome_categoria, id]
+      'UPDATE categoria SET nome_cat = $1 WHERE id_cat = $2 RETURNING *',
+      [nome_cat, id]
     );
     return result.rows[0];
   },
 
   deletar: async (id) => {
-    await db.query('DELETE FROM categoria WHERE id_categoria = $1', [id]);
+    await db.query('DELETE FROM categoria WHERE id_cat = $1', [id]);
   }
 };
 

@@ -1,64 +1,95 @@
 const db = require('./config/database');
 
-async function popularAutores() {
-  const autores = [
-    'Machado de Assis',
-    'Clarice Lispector',
-    'Graciliano Ramos',
-    'Cecília Meireles',
-    'Carlos Drummond de Andrade',
-    'Jorge Amado',
-    'Paulo Coelho',
-    'José de Alencar',
-    'Lygia Fagundes Telles',
-    'Monteiro Lobato'
-  ];
+const autores = [
+  'Machado de Assis',
+  'Clarice Lispector',
+  'Graciliano Ramos',
+  'Cecília Meireles',
+  'Carlos Drummond de Andrade',
+  'Jorge Amado',
+  'Paulo Coelho',
+  'José de Alencar',
+  'Lygia Fagundes Telles',
+  'Monteiro Lobato'
+];
 
+const categorias = [
+  'Ficção',
+  'Romance',
+  'Terror',
+  'Suspense',
+  'Conto',
+  'Histórico',
+  'Crônica',
+  'Infantil',
+  'Fantasia',
+  'Ciência',
+  'Poesia',
+];
+
+const subcategorias = [
+  'Ficção - Científica',
+  'Ficção - Distópica',
+  'Romance - Contemporâneo',
+  'Romance - Histórico',
+  'Terror - Psicológico',
+  'Terror - Sobrenatural',
+  'Suspense - Policial',
+  'Suspense - Thriller Psicológico',
+  'Conto - Fantástico',
+  'Conto - Realista',
+  'Histórico - Biográfico',
+  'Histórico - Ficção Histórica',
+  'Crônica - Cotidiana',
+  'Crônica - Humorística',
+  'Infantil - Educativo',
+  'Infantil - História com Moral',
+  'Fantasia - Alta Fantasia',
+  'Fantasia - Baixa Fantasia',
+  'Ciência - Física',
+  'Ciência - Biologia',
+  'Poesia - Lírica',
+  'Poesia - Épica'
+];
+
+async function popularAutores() {
+  for (const nome of autores) {
+    await db.query(
+      'INSERT INTO autores (nome_autor) VALUES ($1) ON CONFLICT DO NOTHING',
+      [nome]
+    );
+  }
+}
+
+async function popularCategoria() {
+  for (const nome_cat of categorias) {
+    await db.query(
+      'INSERT INTO categoria (nome_cat) VALUES ($1) ON CONFLICT DO NOTHING',
+      [nome_cat]
+    );
+  }
+}
+
+async function popularSubcategoria() {
+  for (const nome_subcat of subcategorias) {
+    await db.query(
+      'INSERT INTO subcategoria (nome_subcat) VALUES ($1) ON CONFLICT DO NOTHING',
+      [nome_subcat]
+    );
+  }
+}
+
+async function main() {
   try {
-    for (const nome of autores) {
-      await db.query('INSERT INTO autores (nome_autor) VALUES ($1)', [nome]);
-    }
-    console.log('Autores inseridos com sucesso!');
-    process.exit(); 
-  } catch (error) {
-    console.error('Erro ao inserir autores:', error);
+    await popularAutores();
+    await popularCategoria();
+    await popularSubcategoria();
+    console.log('População concluída com sucesso!');
+    process.exit(0);
+  } catch (err) {
+    console.error('Erro ao popular dados:', err);
     process.exit(1);
   }
 }
 
-popularAutores();
-
-const categoria = [
-    'Ficção',
-    'Romance',
-    'Terror',
-    'Suspense',
-    'Conto',
-    'Histórico',
-    'Crônica',
-    'Infantil',
-    'Fantasia',
-    'Ciência',
-    'Poesia',
-    'Biografia',
-    'Científico',
-  ];
-  
-  async function popularCategoria() {
-    try {
-      for (const nome_cat of categoria) {
-        await db.query(
-          'INSERT INTO categoria (nome_cat) VALUES ($1) ON CONFLICT DO NOTHING',
-          [nome_cat]
-        );
-        console.log(`Categoria "${nome_cat}" inserida`);
-      }
-      console.log('População concluída!');
-      process.exit(0);
-    } catch (err) {
-      console.error('Erro ao popular categoria:', err);
-      process.exit(1);
-    }
-  }
-  
-  popularCategoria();
+main();
