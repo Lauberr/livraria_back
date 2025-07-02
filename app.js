@@ -6,6 +6,8 @@ const db = require('./config/database');
 const autorRoutes = require('./routes/autorRoutes');
 const categoriaRoutes = require('./routes/categoriaRoutes');
 const subcategoriaRoutes = require('./routes/subcategoriaRoutes')
+const editoraRoutes = require('./routes/editoraRoutes');
+
 
 
 const app = express();
@@ -19,6 +21,9 @@ app.use('/api/autores', autorRoutes); // <- rota principal dos autores
 app.use('/api/categoria', categoriaRoutes);
 
 app.use('/api/subcategorias', subcategoriaRoutes)
+
+app.use('/api/editoras', editoraRoutes);
+
 
 app.get('/', (req, res) => {
   res.send('API da Livraria funcionando! ');

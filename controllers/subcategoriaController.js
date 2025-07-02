@@ -1,4 +1,4 @@
-const Subcategoria = require('../models/SubcategoriaModel');
+const Subcategoria = require('../models/subcategoriaModel');
 
 module.exports = {
   listarSubcategoria: async (req, res) => {

@@ -24,7 +24,7 @@ const categorias = [
   'Infantil',
   'Fantasia',
   'Ciência',
-  'Poesia',
+  'Poesia'
 ];
 
 const subcategorias = [
@@ -52,10 +52,17 @@ const subcategorias = [
   'Poesia - Épica'
 ];
 
+const editoras = [
+  { nome: 'Companhia das Letras', data: '1986-05-01' },
+  { nome: 'Editora Record', data: '1942-10-15' },
+  { nome: 'Editora Moderna', data: '1969-03-12' },
+  { nome: 'Editora Ática', data: '1970-07-20' }
+];
+
 async function popularAutores() {
   for (const nome of autores) {
     await db.query(
-      'INSERT INTO autores (nome_autor) VALUES ($1) ON CONFLICT DO NOTHING',
+      'INSERT INTO autores (nome_autor) VALUES ($1) ON CONFLICT (nome_autor) DO NOTHING',
       [nome]
     );
   }
@@ -64,7 +71,7 @@ async function popularAutores() {
 async function popularCategoria() {
   for (const nome_cat of categorias) {
     await db.query(
-      'INSERT INTO categoria (nome_cat) VALUES ($1) ON CONFLICT DO NOTHING',
+      'INSERT INTO categoria (nome_cat) VALUES ($1) ON CONFLICT (nome_cat) DO NOTHING',
       [nome_cat]
     );
   }
@@ -73,8 +80,17 @@ async function popularCategoria() {
 async function popularSubcategoria() {
   for (const nome_subcat of subcategorias) {
     await db.query(
-      'INSERT INTO subcategoria (nome_subcat) VALUES ($1) ON CONFLICT DO NOTHING',
+      'INSERT INTO subcategoria (nome_subcat) VALUES ($1) ON CONFLICT (nome_subcat) DO NOTHING',
       [nome_subcat]
+    );
+  }
+}
+
+async function popularEditoras() {
+  for (const { nome, data } of editoras) {
+    await db.query(
+      'INSERT INTO editora (nome_editora, data_publicacao) VALUES ($1, $2) ON CONFLICT (nome_editora) DO NOTHING',
+      [nome, data]
     );
   }
 }
@@ -84,6 +100,7 @@ async function main() {
     await popularAutores();
     await popularCategoria();
     await popularSubcategoria();
+    await popularEditoras();
     console.log('População concluída com sucesso!');
     process.exit(0);
   } catch (err) {
