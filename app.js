@@ -1,14 +1,15 @@
 const express = require('express');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 require('dotenv').config();
 
 const db = require('./config/database');
 const autorRoutes = require('./routes/autorRoutes');
 const categoriaRoutes = require('./routes/categoriaRoutes');
-const subcategoriaRoutes = require('./routes/subcategoriaRoutes')
+const subcategoriaRoutes = require('./routes/subcategoriaRoutes');
 const editoraRoutes = require('./routes/editoraRoutes');
-
-
+const cargoRoutes = require('./routes/cargoRoutes');
+const livroRoutes = require('./routes/livroRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,31 +17,22 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/autores', autorRoutes); // <- rota principal dos autores
 
+app.use(fileUpload());
+
+app.use('/imagens', express.static('imagens'));
+
+app.use('/api/autores', autorRoutes);
 app.use('/api/categoria', categoriaRoutes);
-
-app.use('/api/subcategorias', subcategoriaRoutes)
-
+app.use('/api/subcategorias', subcategoriaRoutes);
 app.use('/api/editoras', editoraRoutes);
-
+app.use('/api/cargo', cargoRoutes);
+app.use('/livros', livroRoutes);
 
 app.get('/', (req, res) => {
-  res.send('API da Livraria funcionando! ');
-});
-
-
-app.get('/api/test', async (req, res) => {
-  try {
-    const result = await db.query('SELECT NOW()');
-    res.json({ server: 'ok', db_time: result.rows[0].now });
-  } catch (err) {
-    res.status(500).json({ error: 'Erro ao conectar ao banco', detail: err.message });
-  }
+  res.send('API da Livraria funcionando!');
 });
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
-
-

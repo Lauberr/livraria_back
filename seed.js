@@ -59,6 +59,43 @@ const editoras = [
   { nome: 'Editora Ática', data: '1970-07-20' }
 ];
 
+const cargos = [
+  { descricao: 'Bibliotecário, o único que entra no sistema', qt_livro: 3 },
+  { descricao: 'Professor, empresta livros por 30 dias', qt_livro: 3 },
+  { descricao: 'Aluno, empresta livros por 14 dias', qt_livro: 1 }
+];
+
+const livros = [
+  {
+    isbn: '978-85-01-00001-1',
+    titulo: 'Dom Casmurro',
+    qt_disponivel: 5,
+    disponivel: 1,
+    edicao: '3ª',
+    capa: 'http://localhost:3000/imagens/1751749069308_dom_casmurro.jpg'
+  }
+  
+];
+
+async function popularLivros() {
+  for (const livro of livros) {
+    await db.query(
+      `INSERT INTO livro (isbn, titulo, qt_disponivel, disponivel, edicao, capa)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       ON CONFLICT (isbn) DO NOTHING`,
+      [
+        livro.isbn,
+        livro.titulo,
+        livro.qt_disponivel,
+        livro.disponivel,
+        livro.edicao,
+        livro.capa
+      ]
+    );
+  }
+}
+
+
 async function popularAutores() {
   for (const nome of autores) {
     await db.query(
@@ -95,12 +132,23 @@ async function popularEditoras() {
   }
 }
 
+// async function popularCargos() {
+//   for (const { descricao, qt_livro } of cargos) {
+//     await db.query(
+//       'INSERT INTO cargo (descricao, qt_livro) VALUES ($1, $2)',
+//       [descricao, qt_livro]
+//     );
+//   }
+// }
+
 async function main() {
   try {
     await popularAutores();
     await popularCategoria();
     await popularSubcategoria();
     await popularEditoras();
+    await popularLivros();
+    // await popularCargos();
     console.log('População concluída com sucesso!');
     process.exit(0);
   } catch (err) {
@@ -108,5 +156,6 @@ async function main() {
     process.exit(1);
   }
 }
+
 
 main();
