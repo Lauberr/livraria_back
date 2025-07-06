@@ -10,6 +10,14 @@ const subcategoriaRoutes = require('./routes/subcategoriaRoutes');
 const editoraRoutes = require('./routes/editoraRoutes');
 const cargoRoutes = require('./routes/cargoRoutes');
 const livroRoutes = require('./routes/livroRoutes');
+const locatarioRoutes = require('./routes/locatarioRoutes');
+const cursoRoutes = require('./routes/cursoRoutes');
+const emprestimoRoutes = require('./routes/emprestimoRoutes');
+const dividaRoutes = require('./routes/dividaRoutes');
+
+
+
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -28,6 +36,13 @@ app.use('/api/subcategorias', subcategoriaRoutes);
 app.use('/api/editoras', editoraRoutes);
 app.use('/api/cargo', cargoRoutes);
 app.use('/livros', livroRoutes);
+app.use('/locatarios', locatarioRoutes);
+app.use('/cursos', cursoRoutes);
+app.use('/emprestimos', emprestimoRoutes);
+
+
+
+
 
 app.get('/', (req, res) => {
   res.send('API da Livraria funcionando!');

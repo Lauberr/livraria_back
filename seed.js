@@ -27,6 +27,20 @@ const categorias = [
   'Poesia'
 ];
 
+const cursos = [
+  'Administração',
+  'Engenharia Civil',
+  'Ciência da Computação',
+  'Direito',
+  'Medicina',
+  'Enfermagem',
+  'Arquitetura',
+  'Educação Física',
+  'Psicologia',
+  'Pedagogia'
+];
+
+
 const subcategorias = [
   'Ficção - Científica',
   'Ficção - Distópica',
@@ -77,6 +91,53 @@ const livros = [
   
 ];
 
+const locatarios = [
+  {
+    registro_academico: 'RA12345',
+    nome_locatario: 'Lucas Silva',
+    data_nascimento: '1995-04-20',
+    email_locatario: 'lucas.silva@example.com',
+    telefone_locatario: '11999998888',
+    id_cargo: 2
+  },
+  {
+    registro_academico: 'RA54321',
+    nome_locatario: 'Ana Pereira',
+    data_nascimento: '1998-11-10',
+    email_locatario: 'ana.pereira@example.com',
+    telefone_locatario: '11988887777',
+    id_cargo: 3
+  },
+  {
+    registro_academico: 'RA67890',
+    nome_locatario: 'Carlos Oliveira',
+    data_nascimento: '2000-06-15',
+    email_locatario: 'carlos.oliveira@example.com',
+    telefone_locatario: '11977776666',
+    id_cargo: 4
+  }
+];
+
+async function popularLocatarios() {
+  for (const locatario of locatarios) {
+    await db.query(
+      `INSERT INTO locatario 
+       (registro_academico, nome_locatario, data_nascimento, email_locatario, telefone_locatario, id_cargo)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       ON CONFLICT (registro_academico) DO NOTHING`,
+      [
+        locatario.registro_academico,
+        locatario.nome_locatario,
+        locatario.data_nascimento,
+        locatario.email_locatario,
+        locatario.telefone_locatario,
+        locatario.id_cargo
+      ]
+    );
+  }
+}
+
+
 async function popularLivros() {
   for (const livro of livros) {
     await db.query(
@@ -104,6 +165,16 @@ async function popularAutores() {
     );
   }
 }
+
+async function popularCursos() {
+  for (const nome of cursos) {
+    await db.query(
+      'INSERT INTO curso (nome_curso) VALUES ($1) ON CONFLICT (nome_curso) DO NOTHING',
+      [nome]
+    );
+  }
+}
+
 
 async function popularCategoria() {
   for (const nome_cat of categorias) {
@@ -148,6 +219,8 @@ async function main() {
     await popularSubcategoria();
     await popularEditoras();
     await popularLivros();
+    await popularLocatarios();
+    await popularCursos();
     // await popularCargos();
     console.log('População concluída com sucesso!');
     process.exit(0);
