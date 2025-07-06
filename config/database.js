@@ -1,16 +1,20 @@
 const { Pool } = require('pg');
-//dotenv server para que possamos armazenar as nossas variáveis de ambiente que não desejamos deixar disponível para o público ao realizar um commit.
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-// Conexão com a Base de Dados:
 const pool = new Pool({
   connectionString: process.env.CONNECTION_STRING
 });
 
-pool.on('connect', () => {
+pool.on('connect', async () => {
   console.log('Base de Dados conectado com sucesso!');
+  try {
+    await pool.query("SET TIME ZONE 'America/Sao_Paulo'");
+    console.log("Fuso horário configurado para America/Sao_Paulo");
+  } catch (err) {
+    console.error("Erro ao configurar o fuso horário:", err.message);
+  }
 });
 
 module.exports = {
