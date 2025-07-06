@@ -87,9 +87,25 @@ const livros = [
     disponivel: 1,
     edicao: '3ª',
     capa: 'http://localhost:3000/imagens/1751749069308_dom_casmurro.jpg'
+  },
+  {
+    isbn: '978-85-01-00002-2',
+    titulo: 'Memórias Póstumas de Brás Cubas',
+    qt_disponivel: 4,
+    disponivel: 1,
+    edicao: '1ª',
+    capa: 'http://localhost:3000/imagens/memorias_cubas.jpg'
+  },
+  {
+    isbn: '978-85-01-00003-3',
+    titulo: 'O Cortiço',
+    qt_disponivel: 3,
+    disponivel: 1,
+    edicao: '2ª',
+    capa: 'http://localhost:3000/imagens/o_cortico.jpg'
   }
-  
 ];
+
 
 const locatarios = [
   {

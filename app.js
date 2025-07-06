@@ -39,8 +39,7 @@ app.use('/livros', livroRoutes);
 app.use('/locatarios', locatarioRoutes);
 app.use('/cursos', cursoRoutes);
 app.use('/emprestimos', emprestimoRoutes);
-
-
+app.use('/dividas', dividaRoutes);
 
 
 
