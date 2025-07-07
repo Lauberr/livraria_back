@@ -30,28 +30,34 @@ module.exports = {
   },
 
   criar: async (req, res) => {
-    try {
-      const { isbn, titulo, qt_disponivel, disponivel, edicao } = req.body;
-      let capa = null;
+  try {
+    const { isbn, titulo, qt_disponivel, edicao } = req.body;
 
-      if (req.files?.capa) {
-        capa = salvarImagem(req.files.capa);
-      }
+    // Converter booleano string para inteiro
+    let disponivel = req.body.disponivel == 'true' ? 1 : 0;
 
-      const novoLivro = await Livro.criar({
-        isbn,
-        titulo,
-        qt_disponivel,
-        disponivel,
-        edicao,
-        capa
-      });
-
-      res.status(201).json(novoLivro);
-    } catch (err) {
-      res.status(500).json({ erro: 'Erro ao criar livro', detalhe: err.message });
+    let capa = null;
+    if (req.files?.capa) {
+      capa = salvarImagem(req.files.capa);
     }
-  },
+
+    const novoLivro = await Livro.criar({
+      isbn,
+      titulo,
+      qt_disponivel,
+      disponivel,
+      edicao,
+      capa
+    });
+
+    res.status(201).json(novoLivro);
+  } catch (err) {
+    console.error('Erro ao criar livro:', err);
+    res.status(500).json({ erro: 'Erro ao criar livro', detalhe: err.message });
+  }
+},
+
+
 
   atualizar: async (req, res) => {
     try {

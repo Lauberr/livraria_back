@@ -78,5 +78,25 @@ module.exports = {
       [id_locatario, id_livro, data_hora_emprestimo]
     );
     return result.rows[0];
-  }
+  },
+
+  async listarHistoricoCompleto() {
+  const result = await db.query(`
+    SELECT
+      e.id_locatario, l.nome AS nome_locatario, c.nome AS cargo, lv.id_livro, lv.titulo, lv.capa, e data_hora_emprestimo, e.data_devolucao,
+      CASE 
+        WHEN e.data_devolucao < NOW() THEN 'indisponível'
+        WHEN e.data_devolucao IS NULL THEN 'reservado'
+        ELSE 'disponível'
+      END AS status
+    FROM emprestimo e
+    JOIN locatario l ON l.id_locatario = e.id_locatario
+    JOIN cargo c ON c.id_cargo = l.id_cargo
+    JOIN livro lv ON lv.id_livro = e.id_livro
+    ORDER BY e.data_hora_emprestimo DESC
+  `);
+
+  return result.rows;
+}
+
 };

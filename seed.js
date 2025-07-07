@@ -40,7 +40,6 @@ const cursos = [
   'Pedagogia'
 ];
 
-
 const subcategorias = [
   'Ficção - Científica',
   'Ficção - Distópica',
@@ -106,7 +105,6 @@ const livros = [
   }
 ];
 
-
 const locatarios = [
   {
     registro_academico: 'RA12345',
@@ -134,6 +132,70 @@ const locatarios = [
   }
 ];
 
+const emprestimos = [
+    {
+      id_locatario: 1, // Professor
+      id_livro: 1,
+      data_emprestimo: '2025-07-01 10:00:00',
+      dias: 30
+    },
+    {
+      id_locatario: 2, // Aluna
+      id_livro: 2,
+      data_emprestimo: '2025-07-02 09:00:00',
+      dias: 14
+    },
+    {
+      id_locatario: 3, // Cargo 4
+      id_livro: 3,
+      data_emprestimo: '2025-06-10 14:00:00',
+      dias: 14
+    },
+    {
+      id_locatario: 1,
+      id_livro: 2,
+      data_emprestimo: '2025-06-01 15:30:00',
+      dias: 30
+    },
+    {
+      id_locatario: 2,
+      id_livro: 3,
+      data_emprestimo: '2025-07-03 11:15:00',
+      dias: 14
+    },
+    {
+      id_locatario: 3,
+      id_livro: 1,
+      data_emprestimo: '2025-07-04 08:45:00',
+      dias: 14
+    },
+    {
+      id_locatario: 1,
+      id_livro: 3,
+      data_emprestimo: '2025-07-05 10:30:00',
+      dias: 30
+    },
+    {
+      id_locatario: 2,
+      id_livro: 1,
+      data_emprestimo: '2025-06-25 17:00:00',
+      dias: 14
+    },
+    {
+      id_locatario: 3,
+      id_livro: 2,
+      data_emprestimo: '2025-07-06 13:45:00',
+      dias: 14
+    },
+    {
+      id_locatario: 2,
+      id_livro: 1,
+      data_emprestimo: '2025-06-05 12:00:00',
+      dias: 14
+    }
+  ];
+
+
 async function popularLocatarios() {
   for (const locatario of locatarios) {
     await db.query(
@@ -141,7 +203,7 @@ async function popularLocatarios() {
        (registro_academico, nome_locatario, data_nascimento, email_locatario, telefone_locatario, id_cargo)
        VALUES ($1, $2, $3, $4, $5, $6)
        ON CONFLICT (registro_academico) DO NOTHING`,
-      [
+      [ 
         locatario.registro_academico,
         locatario.nome_locatario,
         locatario.data_nascimento,
@@ -219,6 +281,22 @@ async function popularEditoras() {
   }
 }
 
+
+async function popularEmprestimos(){
+  for (const emp of emprestimos) {
+    const devolucao = new Date(new Date(emp.data_emprestimo).getTime() + emp.dias * 24 * 60 * 60 * 1000);
+    const data_devolucao = devolucao.toISOString().slice(0, 19).replace('T', ' ');
+
+    await db.query(
+      `INSERT INTO emprestimo (id_locatario, id_livro, data_hora_emprestimo, data_devolucao)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT DO NOTHING`,
+      [emp.id_locatario, emp.id_livro, emp.data_emprestimo, data_devolucao]
+    );
+  }
+}
+
+
 // async function popularCargos() {
 //   for (const { descricao, qt_livro } of cargos) {
 //     await db.query(
@@ -237,6 +315,8 @@ async function main() {
     await popularLivros();
     await popularLocatarios();
     await popularCursos();
+    await popularEmprestimos();
+
     // await popularCargos();
     console.log('População concluída com sucesso!');
     process.exit(0);

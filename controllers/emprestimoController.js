@@ -84,5 +84,15 @@ module.exports = {
     } catch (err) {
       res.status(500).json({ erro: err.message });
     }
+  },
+
+  async listarHistoricoCompleto(req, res) {
+  try {
+    const historico = await Emprestimo.listarHistoricoCompleto();
+    res.json(historico);
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
   }
+}
+
 };
