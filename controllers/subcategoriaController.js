@@ -2,13 +2,13 @@ const Subcategoria = require('../models/subcategoriaModel');
 
 module.exports = {
   listarSubcategoria: async (req, res) => {
-    try {
-      const Subcategoria = await Subcategoria.listar();
-      res.json(Subcategoria);
-    } catch (err) {
-      res.status(500).json({ erro: 'Erro ao listar Subcategoria', detalhe: err.message });
-    }
-  },
+  try {
+    const lista = await Subcategoria.listar();
+    res.json(lista);
+  } catch (err) {
+    res.status(500).json({ erro: 'Erro ao listar Subcategoria', detalhe: err.message });
+  }
+},
 
   obterSubcategoria: async (req, res) => {
     try {
