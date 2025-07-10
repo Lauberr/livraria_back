@@ -48,13 +48,14 @@ module.exports = {
       email_locatario,
       telefone_locatario,
       id_cargo,
+      status
     } = locatario;
 
     const query = `
       UPDATE locatario
       SET registro_academico = $1, nome_locatario = $2, data_nascimento = $3, email_locatario = $4,
-          telefone_locatario = $5, id_cargo = $6
-      WHERE id_locatario = $7 RETURNING *`;
+          telefone_locatario = $5, id_cargo = $6, status = $7
+      WHERE id_locatario = $8 RETURNING *`;
 
     const values = [
       registro_academico,
@@ -63,6 +64,7 @@ module.exports = {
       email_locatario,
       telefone_locatario,
       id_cargo,
+      status,
       id,
     ];
 
