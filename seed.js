@@ -334,18 +334,18 @@ main();
 
 // postman ( POST http://localhost:3000/locatarios ) raw json
 //{
-//   "registro_academico": "RA98765",
-//   "nome_locatario": "Mariana Andrade",
+//   "registro_academico": "RA98722",
+//   "nome_locatario": "Otavio Paulo",
 //   "data_nascimento": "2002-09-22",
-//   "email_locatario": "mariana.andrade@example.com",
-//   "telefone_locatario": "11988889999",
+//   "email_locatario": "otacio.andrade@example.com",
+//   "telefone_locatario": "11985389999",
 //   "id_cargo": 3,
 //   "status": true
 // }
 
 // POST http://localhost:3000/emprestimos
 // {
-//   "id_locatario": 13,
+//   "id_locatario": ,
 //   "id_livro": 6
 // }
 
