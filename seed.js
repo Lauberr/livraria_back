@@ -134,7 +134,7 @@ const locatarios = [
 
 const emprestimos = [
     {
-      id_locatario: 1, // Professor
+      id_locatario: 4, // Professor
       id_livro: 1,
       data_emprestimo: '2025-07-01 10:00:00',
       dias: 30
@@ -152,7 +152,7 @@ const emprestimos = [
       dias: 14
     },
     {
-      id_locatario: 1,
+      id_locatario: 4,
       id_livro: 2,
       data_emprestimo: '2025-06-01 15:30:00',
       dias: 30
@@ -170,7 +170,7 @@ const emprestimos = [
       dias: 14
     },
     {
-      id_locatario: 1,
+      id_locatario: 4,
       id_livro: 3,
       data_emprestimo: '2025-07-05 10:30:00',
       dias: 30
@@ -308,6 +308,7 @@ async function popularEmprestimos(){
 
 async function main() {
   try {
+    // await popularCargos();
     await popularAutores();
     await popularCategoria();
     await popularSubcategoria();
@@ -315,9 +316,9 @@ async function main() {
     await popularLivros();
     await popularLocatarios();
     await popularCursos();
-    await popularEmprestimos();
+    //await popularEmprestimos();
 
-    // await popularCargos();
+    
     console.log('População concluída com sucesso!');
     process.exit(0);
   } catch (err) {
@@ -328,3 +329,23 @@ async function main() {
 
 
 main();
+
+
+
+// postman ( POST http://localhost:3000/locatarios ) raw json
+//{
+//   "registro_academico": "RA98765",
+//   "nome_locatario": "Mariana Andrade",
+//   "data_nascimento": "2002-09-22",
+//   "email_locatario": "mariana.andrade@example.com",
+//   "telefone_locatario": "11988889999",
+//   "id_cargo": 3,
+//   "status": true
+// }
+
+// POST http://localhost:3000/emprestimos
+// {
+//   "id_locatario": 13,
+//   "id_livro": 6
+// }
+
