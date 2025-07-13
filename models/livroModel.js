@@ -11,6 +11,15 @@ module.exports = {
     return result.rows[0];
   },
 
+  async obterPorTitulo(titulo) {
+  const result = await db.query(
+    "SELECT * FROM livro WHERE titulo ILIKE $1",
+    [titulo]
+  );
+  return result.rows;
+},
+
+
   buscarAutores: async (id_livro) => {
     const result = await db.query(
       `SELECT a.nome_autor FROM autores a

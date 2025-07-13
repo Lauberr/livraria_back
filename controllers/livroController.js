@@ -138,5 +138,18 @@ module.exports = {
     } catch (err) {
       res.status(500).json({ erro: 'Erro ao deletar livro', detalhe: err.message });
     }
+  },
+
+  async obterPorTitulo(req, res) {
+  try {
+    const livros = await Livro.obterPorTitulo(req.params.titulo);
+    if (livros.length === 0) {
+      return res.status(404).json({ erro: "Livro não encontrado" });
+    }
+    res.json(livros);
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
   }
+}
+
 };

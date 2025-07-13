@@ -86,5 +86,19 @@ module.exports = {
     }
   },
 
+  async buscarHistoricoPorRA(req, res) {
+  try {
+    const emprestimos = await Emprestimo.buscarHistoricoPorRA(req.params.ra);
+    if (!emprestimos.length) {
+      return res.status(404).json({ erro: 'Nenhum empréstimo encontrado para esse RA' });
+    }
+    res.json(emprestimos);
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
+  }
+}
+
+
+
 
 };

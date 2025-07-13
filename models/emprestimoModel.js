@@ -39,6 +39,21 @@ module.exports = {
     return result.rows;
   },
 
+ async buscarHistoricoPorRA(ra) {
+  const result = await db.query(
+    `SELECT e.*, l.titulo
+     FROM emprestimo e
+     JOIN locatario lo ON lo.id_locatario = e.id_locatario
+     JOIN livro l ON l.id_livro = e.id_livro
+     WHERE lo.registro_academico = $1
+     ORDER BY e.data_hora_emprestimo DESC`,
+    [ra]
+  );
+  return result.rows;
+},
+
+
+
   async buscarUltimo(id_locatario, id_livro) {
     const result = await db.query(
       `SELECT * FROM emprestimo 
