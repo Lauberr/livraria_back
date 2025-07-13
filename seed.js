@@ -107,27 +107,27 @@ const livros = [
 
 const locatarios = [
   {
-    registro_academico: 'RA12345',
-    nome_locatario: 'Lucas Silva',
-    data_nascimento: '1995-04-20',
-    email_locatario: 'lucas.silva@example.com',
-    telefone_locatario: '11999998888',
+    registro_academico: '2212345',
+    nome_locatario: 'Eduardo Silva',
+    data_nascimento: '1996-04-20',
+    email_locatario: 'eduardo.silva@example.com',
+    telefone_locatario: '11999998228',
     id_cargo: 2
   },
   {
-    registro_academico: 'RA54321',
-    nome_locatario: 'Ana Pereira',
-    data_nascimento: '1998-11-10',
-    email_locatario: 'ana.pereira@example.com',
-    telefone_locatario: '11988887777',
+    registro_academico: '2254321',
+    nome_locatario: 'Nicole Pereira',
+    data_nascimento: '2006-11-10',
+    email_locatario: 'nic.pereira@example.com',
+    telefone_locatario: '11988887713',
     id_cargo: 3
   },
   {
-    registro_academico: 'RA67890',
-    nome_locatario: 'Carlos Oliveira',
-    data_nascimento: '2000-06-15',
-    email_locatario: 'carlos.oliveira@example.com',
-    telefone_locatario: '11977776666',
+    registro_academico: '2267890',
+    nome_locatario: 'Alisson Oliveira',
+    data_nascimento: '2006-06-15',
+    email_locatario: 'alifilho.oliveira@example.com',
+    telefone_locatario: '11977776116',
     id_cargo: 4
   }
 ];
@@ -334,7 +334,7 @@ main();
 
 // postman ( POST http://localhost:3000/locatarios ) raw json
 //{
-//   "registro_academico": "RA98722",
+//   "registro_academico": "2298722",
 //   "nome_locatario": "Otavio Paulo",
 //   "data_nascimento": "2002-09-22",
 //   "email_locatario": "otacio.andrade@example.com",

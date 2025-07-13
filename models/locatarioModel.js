@@ -42,13 +42,9 @@ module.exports = {
 
   async buscarPorRA(ra) {
     const result = await db.query(
-      `SELECT l.id_locatario, l.nome_locatario, l.id_cargo, c.nome_cargo
-     FROM locatario l
-     JOIN cargo c ON l.id_cargo = c.id_cargo
-     WHERE l.registro_academico = $1`,
+      "SELECT * FROM locatario WHERE registro_academico = $1",
       [ra]
     );
-
     return result.rows[0];
   },
 
