@@ -7,5 +7,7 @@ router.get('/', controller.listarTodos);
 router.get('/:id', controller.buscarPorId);
 router.put('/:id', controller.atualizar);
 router.delete('/:id', controller.deletar);
+router.get('/ra/:ra', controller.buscarPorRA);
+
 
 module.exports = router;

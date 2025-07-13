@@ -40,6 +40,18 @@ module.exports = {
     return result.rows[0];
   },
 
+  async buscarPorRA(ra) {
+    const result = await db.query(
+      `SELECT l.id_locatario, l.nome_locatario, l.id_cargo, c.nome_cargo
+     FROM locatario l
+     JOIN cargo c ON l.id_cargo = c.id_cargo
+     WHERE l.registro_academico = $1`,
+      [ra]
+    );
+
+    return result.rows[0];
+  },
+
   async atualizar(id, locatario) {
     const {
       registro_academico,
@@ -48,7 +60,7 @@ module.exports = {
       email_locatario,
       telefone_locatario,
       id_cargo,
-      status
+      status,
     } = locatario;
 
     const query = `
