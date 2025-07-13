@@ -11,7 +11,7 @@
 -- DROP TABLE IF EXISTS subcategoria
 -- DROP TABLE IF EXISTS categoria_subcategoria
 -- DROP TABLE IF EXISTS categoria
--- DROP TABLE IF EXISTS categoria_livro
+-- DROP TABLE IF EXISTS categoria_livro	
 -- DROP TABLE IF EXISTS livro
 
 -- =============================================================

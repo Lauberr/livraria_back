@@ -31,11 +31,11 @@ app.use(fileUpload());
 
 app.use('/imagens', express.static('imagens'));
 
-app.use('/autores', autorRoutes);
-app.use('/categoria', categoriaRoutes);
-app.use('/subcategorias', subcategoriaRoutes);
-app.use('/editoras', editoraRoutes);
-app.use('/cargo', cargoRoutes);
+app.use('/api/autores', autorRoutes);
+app.use('/api/categoria', categoriaRoutes);
+app.use('/api/subcategorias', subcategoriaRoutes);
+app.use('/api/editoras', editoraRoutes);
+app.use('/api/cargo', cargoRoutes);
 app.use('/livros', livroRoutes);
 app.use('/locatarios', locatarioRoutes);
 app.use('/cursos', cursoRoutes);

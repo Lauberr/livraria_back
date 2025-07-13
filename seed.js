@@ -349,3 +349,22 @@ main();
 //   "id_livro": 6
 // }
 
+
+
+// // LIVROS: 
+
+// Uzumaki
+// Junji Ito
+// 978-6555140576
+// Histórias de Horror
+// DarkSide
+
+
+// Frankenstein
+// MARY SHELLEY
+// 978-8537818589
+// Texto integral
+// Clássicos Zahar
+
+
+
