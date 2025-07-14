@@ -65,6 +65,7 @@ CREATE TABLE categoria (
 
 CREATE TABLE subcategoria (
   id_subcat SERIAL PRIMARY KEY,
+  id_cat INTEGER REFERENCES categoria(id_cat),
   nome_subcat VARCHAR(100) UNIQUE NOT NULL
 );
 

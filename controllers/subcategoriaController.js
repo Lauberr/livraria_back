@@ -20,6 +20,17 @@ module.exports = {
     }
   },
 
+  async buscarPorCategoria(req, res) {
+  try {
+    const id_cat = req.params.id_cat;
+    const subcats = await Subcategoria.buscarPorCategoria(id_cat);
+    res.json(subcats);
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
+  }
+},
+
+
   criarSubcategoria: async (req, res) => {
     try {
       const novaSubcategoria = await Subcategoria.criar(req.body.nome_Subcategoria);

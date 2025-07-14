@@ -41,29 +41,32 @@ const cursos = [
 ];
 
 const subcategorias = [
-  'Ficção - Científica',
-  'Ficção - Distópica',
-  'Romance - Contemporâneo',
-  'Romance - Histórico',
-  'Terror - Psicológico',
-  'Terror - Sobrenatural',
-  'Suspense - Policial',
-  'Suspense - Thriller Psicológico',
-  'Conto - Fantástico',
-  'Conto - Realista',
-  'Histórico - Biográfico',
-  'Histórico - Ficção Histórica',
-  'Crônica - Cotidiana',
-  'Crônica - Humorística',
-  'Infantil - Educativo',
-  'Infantil - História com Moral',
-  'Fantasia - Alta Fantasia',
-  'Fantasia - Baixa Fantasia',
-  'Ciência - Física',
-  'Ciência - Biologia',
-  'Poesia - Lírica',
-  'Poesia - Épica'
+  { nome: 'Ficção - Científica', id_cat: 1 },
+  { nome: 'Ficção - Distópica', id_cat: 1 },
+  { nome: 'Romance - Contemporâneo', id_cat: 2 },
+  { nome: 'Romance - Histórico', id_cat: 2 },
+  { nome: 'Terror - Psicológico', id_cat: 3 },
+  { nome: 'Terror - Sobrenatural', id_cat: 3 },
+  { nome: 'Suspense - Policial', id_cat: 4 },
+  { nome: 'Suspense - Thriller Psicológico', id_cat: 4 },
+  { nome: 'Conto - Fantástico', id_cat: 5 },
+  { nome: 'Conto - Realista', id_cat: 5 },
+  { nome: 'Histórico - Biográfico', id_cat: 6 },
+  { nome: 'Histórico - Ficção Histórica', id_cat: 6 },
+  { nome: 'Crônica - Cotidiana', id_cat: 7 },
+  { nome: 'Crônica - Humorística', id_cat: 7 },
+  { nome: 'Infantil - Educativo', id_cat: 8 },
+  { nome: 'Infantil - História com Moral', id_cat: 8 },
+  { nome: 'Fantasia - Alta Fantasia', id_cat: 9 },
+  { nome: 'Fantasia - Baixa Fantasia', id_cat: 9 },
+  { nome: 'Ciência - Física', id_cat: 10 },
+  { nome: 'Ciência - Biologia', id_cat: 10 },
+  { nome: 'Poesia - Lírica', id_cat: 11 },
+  { nome: 'Poesia - Épica', id_cat: 11 }
 ];
+
+
+
 
 const editoras = [
   { nome: 'Companhia das Letras', data: '1986-05-01' },
@@ -264,10 +267,10 @@ async function popularCategoria() {
 }
 
 async function popularSubcategoria() {
-  for (const nome_subcat of subcategorias) {
+  for (const { nome, id_cat } of subcategorias) {
     await db.query(
-      'INSERT INTO subcategoria (nome_subcat) VALUES ($1) ON CONFLICT (nome_subcat) DO NOTHING',
-      [nome_subcat]
+      'INSERT INTO subcategoria (nome_subcat, id_cat) VALUES ($1, $2) ON CONFLICT (nome_subcat) DO NOTHING',
+      [nome, id_cat]
     );
   }
 }

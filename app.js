@@ -15,6 +15,8 @@ const cursoRoutes = require('./routes/cursoRoutes');
 const emprestimoRoutes = require('./routes/emprestimoRoutes');
 const dividaRoutes = require('./routes/dividaRoutes');
 const autorLivroRoutes = require('./routes/autorLivroRoutes');
+const categoriaLivroRoutes = require('./routes/categoriaLivroRoutes');
+
 
 
 
@@ -42,6 +44,8 @@ app.use('/cursos', cursoRoutes);
 app.use('/emprestimos', emprestimoRoutes);
 app.use('/dividas', dividaRoutes);
 app.use('/autor-livro', autorLivroRoutes);
+app.use('/categoria-livro', categoriaLivroRoutes);
+
 
 
 

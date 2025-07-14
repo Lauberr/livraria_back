@@ -11,6 +11,15 @@ const subcategoria = {
     return result.rows[0];
   },
 
+  async buscarPorCategoria(id_cat) {
+  const result = await db.query(
+    'SELECT * FROM subcategoria WHERE id_cat = $1',
+    [id_cat]
+  );
+  return result.rows;
+},
+
+
   criar: async (nome_subcat) => {
     const result = await db.query(
       'INSERT INTO subcategoria (nome_subcat) VALUES ($1) RETURNING *',
