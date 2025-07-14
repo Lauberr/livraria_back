@@ -124,7 +124,7 @@ Se um locatário devolve um livro com atraso, o sistema permite registrar uma d�
 | Nome             | Responsabilidade principal                  |
 |------------------|---------------------------------------------|
 | Otávio Paulino   | Backend, banco de dados, lógica de negócio |
-| Bárbara Lauber   | Frontend (React), layout, integração visual |
+| Bárbara Lauber   | Frontend (React), design, integração funcional |
 
 ---
 
