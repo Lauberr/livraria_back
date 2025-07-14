@@ -150,6 +150,30 @@ module.exports = {
   } catch (err) {
     res.status(500).json({ erro: err.message });
   }
+},
+
+async obterDetalhesLivro(req, res) {
+  try {
+    const id = req.params.id;
+    const livro = await Livro.obterPorId(id);
+    if (!livro) {
+      return res.status(404).json({ erro: 'Livro não encontrado' });
+    }
+
+    const autores = await Livro.buscarAutores(id);
+    const categorias = await Livro.buscarCategoria(id);
+    const editora = await Livro.buscarEditora(id);
+
+    res.json({
+      ...livro,
+      autores,
+      categorias,
+      editora
+    });
+  } catch (err) {
+    res.status(500).json({ erro: 'Erro ao obter detalhes do livro', detalhe: err.message });
+  }
 }
+
 
 };
