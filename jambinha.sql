@@ -91,7 +91,7 @@ CREATE TABLE cargo(
 
 CREATE TABLE locatario(
 	id_locatario SERIAL PRIMARY KEY,
-	registro_academico VARCHAR(7),
+	registro_academico VARCHAR(7) UNIQUE,
 	nome_locatario VARCHAR(100) NOT NULL,
 	data_nascimento DATE,
 	email_locatario VARCHAR(255),
@@ -105,7 +105,7 @@ CREATE TABLE locatario(
 
 CREATE TABLE curso(
 	id_curso SERIAL PRIMARY KEY,
-	nome_curso VARCHAR(50) NOT NULL
+	nome_curso VARCHAR(50) UNIQUE NOT NULL
 );
 
 -- -------------------------EMPRESTIMO FEITO-------------------------
@@ -118,18 +118,6 @@ CREATE TABLE emprestimo (
 	PRIMARY KEY (id_locatario, id_livro, data_hora_emprestimo)
 );
 
-
--- CREATE TABLE solicita_reserva (
---     id_solicita_reserva SERIAL PRIMARY KEY,
---     id_livro INTEGER,
---     id_locatario INTEGER,
---     justificativa VARCHAR(500),
---     data_hora_reserva TIMESTAMP,
---     FOREIGN KEY (id_livro) REFERENCES livro(id_livro) ON DELETE CASCADE,
---     FOREIGN KEY (id_locatario) REFERENCES locatario(id_locatario) ON DELETE CASCADE
--- );
-
-
 -- --------------------------DIVIDAS FEITO--------------------------
 
 CREATE TABLE dividas(
@@ -141,7 +129,7 @@ CREATE TABLE dividas(
   data_hora_divida TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   estado INT CHECK (estado IN (0,1)) NOT NULL,
   FOREIGN KEY (id_locatario, id_livro, data_hora_emprestimo)
-    REFERENCES emprestimo(id_locatario, id_livro, data_hora_emprestimo) ON DELETE CASCADE
+	REFERENCES emprestimo(id_locatario, id_livro, data_hora_emprestimo) ON DELETE CASCADE
 );
 
 

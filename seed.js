@@ -131,31 +131,31 @@ const locatarios = [
     data_nascimento: '2006-06-15',
     email_locatario: 'alifilho.oliveira@example.com',
     telefone_locatario: '11977776116',
-    id_cargo: 4
+    id_cargo: 1
   }
 ];
 
 const emprestimos = [
     {
-      id_locatario: 4, // Professor
+      id_locatario: 1, 
       id_livro: 1,
       data_emprestimo: '2025-07-01 10:00:00',
       dias: 30
     },
     {
-      id_locatario: 2, // Aluna
+      id_locatario: 1, 
       id_livro: 2,
       data_emprestimo: '2025-07-02 09:00:00',
       dias: 14
     },
     {
-      id_locatario: 3, // Cargo 4
+      id_locatario: 1, 
       id_livro: 3,
       data_emprestimo: '2025-06-10 14:00:00',
       dias: 14
     },
     {
-      id_locatario: 4,
+      id_locatario: 2,
       id_livro: 2,
       data_emprestimo: '2025-06-01 15:30:00',
       dias: 30
@@ -167,19 +167,19 @@ const emprestimos = [
       dias: 14
     },
     {
-      id_locatario: 3,
+      id_locatario: 2,
       id_livro: 1,
       data_emprestimo: '2025-07-04 08:45:00',
       dias: 14
     },
     {
-      id_locatario: 4,
+      id_locatario: 3, 
       id_livro: 3,
       data_emprestimo: '2025-07-05 10:30:00',
       dias: 30
     },
     {
-      id_locatario: 2,
+      id_locatario: 3,
       id_livro: 1,
       data_emprestimo: '2025-06-25 17:00:00',
       dias: 14
@@ -190,12 +190,6 @@ const emprestimos = [
       data_emprestimo: '2025-07-06 13:45:00',
       dias: 14
     },
-    {
-      id_locatario: 2,
-      id_livro: 1,
-      data_emprestimo: '2025-06-05 12:00:00',
-      dias: 14
-    }
   ];
 
 
@@ -300,18 +294,18 @@ async function popularEmprestimos(){
 }
 
 
-// async function popularCargos() {
-//   for (const { descricao, qt_livro } of cargos) {
-//     await db.query(
-//       'INSERT INTO cargo (descricao, qt_livro) VALUES ($1, $2)',
-//       [descricao, qt_livro]
-//     );
-//   }
-// }
+async function popularCargos() {
+   for (const { descricao, qt_livro } of cargos) {
+    await db.query(
+       'INSERT INTO cargo (descricao, qt_livro) VALUES ($1, $2)',
+       [descricao, qt_livro]
+     );
+   }
+ }
 
 async function main() {
   try {
-    // await popularCargos();
+    await popularCargos();
     await popularAutores();
     await popularCategoria();
     await popularSubcategoria();
@@ -319,7 +313,7 @@ async function main() {
     await popularLivros();
     await popularLocatarios();
     await popularCursos();
-    //await popularEmprestimos();
+    await popularEmprestimos();
 
     
     console.log('População concluída com sucesso!');
@@ -351,23 +345,3 @@ main();
 //   "id_locatario": ,
 //   "id_livro": 6
 // }
-
-
-
-// // LIVROS: 
-
-// Uzumaki
-// Junji Ito
-// 978-6555140576
-// Histórias de Horror
-// DarkSide
-
-
-// Frankenstein
-// MARY SHELLEY
-// 978-8537818589
-// Texto integral
-// Clássicos Zahar
-
-
-
