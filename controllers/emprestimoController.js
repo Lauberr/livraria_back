@@ -1,24 +1,46 @@
 const Emprestimo = require('../models/emprestimoModel');
+const { enviarEmailEmprestimo } = require('../services/emailService');
+const Locatario = require('../models/locatarioModel');
+const Livro = require('../models/livroModel');
+
 
 module.exports = {
- async criar(req, res) {
+async criar(req, res) {
   try {
     const { id_locatario, id_livro } = req.body;
     const emprestimo = await Emprestimo.criar({ id_locatario, id_livro });
 
-    emprestimo.data_hora_emprestimo = new Date(emprestimo.data_hora_emprestimo).toLocaleString('pt-BR', {
+    const dataEmprestimoFormatada = new Date(emprestimo.data_hora_emprestimo).toLocaleString('pt-BR', {
       timeZone: 'America/Sao_Paulo'
     });
 
-    emprestimo.data_devolucao = new Date(emprestimo.data_devolucao).toLocaleString('pt-BR', {
+    const dataDevolucaoFormatada = new Date(emprestimo.data_devolucao).toLocaleString('pt-BR', {
       timeZone: 'America/Sao_Paulo'
     });
 
-    res.status(201).json(emprestimo);
+    const locatario = await Locatario.buscarPorId(id_locatario);
+    const livro = await Livro.obterPorId(id_livro);
+
+    if (locatario && livro) {
+      await enviarEmailEmprestimo({
+        para: locatario.email_locatario,
+        nomeLocatario: locatario.nome_locatario,
+        tituloLivro: livro.titulo,
+        dataEmprestimo: dataEmprestimoFormatada,
+        dataDevolucao: dataDevolucaoFormatada
+      });
+    }
+
+    res.status(201).json({
+      ...emprestimo,
+      data_hora_emprestimo: dataEmprestimoFormatada,
+      data_devolucao: dataDevolucaoFormatada
+    });
   } catch (err) {
     res.status(500).json({ erro: err.message });
   }
 },
+
 
 
   async listarTodos(req, res) {
