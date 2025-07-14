@@ -28,8 +28,14 @@ module.exports = {
   },
 
   async listarTodos() {
-    const result = await db.query("SELECT * FROM locatario");
-    return result.rows;
+     const result = await db.query(`
+      SELECT l.*, c.descricao AS tipo
+      FROM locatario l
+      JOIN cargo c ON l.id_cargo = c.id_cargo`);
+    return result.rows.map(row => ({
+      ...row,
+      tipo: row.tipo  
+    }));
   },
 
   async buscarPorId(id) {
