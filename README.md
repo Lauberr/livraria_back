@@ -11,6 +11,7 @@ Permite o **cadastro e controle de livros, autores, editoras, categorias, subcat
 - Consulta de histórico  
 - Vinculação de autores aos livros  
 - Acesso restrito por tipo de usuário (bibliotecário, professor, aluno)
+- Mandar emails confirmando empréstimos
 
 O sistema possui um **frontend em React** e um **backend em Node.js com Express e PostgreSQL**.
 
@@ -36,6 +37,7 @@ O banco deve ter as seguintes especificações postgres:postgres@localhost:5432/
 
 ```
 npm install
+se precisar, baixe npm install nodemailer
 ```
 
 2. Popule o banco de dados com dados iniciais:

@@ -24,7 +24,7 @@ async function enviarEmailEmprestimo({ para, nomeLocatario, tituloLivro, dataEmp
         <strong>Data do Empréstimo:</strong> ${dataEmprestimo}<br/>
         <strong>Data de Devolução:</strong> ${dataDevolucao}
       </p>
-      <p>Boa leitura!<br/>Equipe da Biblioteca 📖</p>
+      <p>Boa leitura!<br/>Equipe da Biblioteca Jambinha 📖</p>
     `
   };
 
