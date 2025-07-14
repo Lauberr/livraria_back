@@ -35,8 +35,13 @@ module.exports = {
   },
 
   criar: async (req, res) => {
-    try {
-      const {
+console.log("Body recebido no cadastro:", req.body);
+  
+  
+  try {
+    console.log('🔍 REQ.BODY:', req.body);
+    console.log('📁 REQ.FILES:', req.files);
+    const {
         isbn,
         titulo,
         qt_disponivel,
